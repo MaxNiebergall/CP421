@@ -56,9 +56,11 @@ item_pairs_list_sorted_by_conf = []
 
 for k, v in item_pairs_list:
     conf = items.get(k[0])
-    item_pairs_list_sorted_by_conf.append((v / conf, k))
+    item_pairs_list_sorted_by_conf.append((k, v / conf))
 
-item_pairs_list_sorted_by_conf.sort()
+item_pairs_list_sorted_by_conf = sorted(item_pairs_list_sorted_by_conf, key=lambda k: k[0][1])
+item_pairs_list_sorted_by_conf = sorted(item_pairs_list_sorted_by_conf, key=lambda k: k[0][0])
+item_pairs_list_sorted_by_conf = sorted(item_pairs_list_sorted_by_conf, key=lambda k: k[1], reverse=True)
 
 for k, v in item_pairs_list_sorted_by_conf:
     pairs_fv.write(str(k) + " " + str(v) + "\n")
@@ -104,10 +106,16 @@ for k, v in list(item_trips_dict.items()):
     items_local = k
 
     count_of_pair = item_pairs_dict.get((items_local[0], items_local[1]))
-    item_trips_list_sorted_by_conf.append((v / count_of_pair, k))
+    item_trips_list_sorted_by_conf.append((k, v / count_of_pair))
 
 
-item_trips_list_sorted_by_conf.sort()
+
+
+
+item_trips_list_sorted_by_conf = sorted(item_trips_list_sorted_by_conf, key=lambda k: k[0][2])
+item_trips_list_sorted_by_conf = sorted(item_trips_list_sorted_by_conf, key=lambda k: k[0][1])
+item_trips_list_sorted_by_conf = sorted(item_trips_list_sorted_by_conf, key=lambda k: k[0][0])
+item_trips_list_sorted_by_conf = sorted(item_trips_list_sorted_by_conf, key=lambda k: k[1], reverse=True)
 
 for v, k in item_trips_list_sorted_by_conf:
     trips_fv.write(str(v) + " " + str(k) + "\n")
